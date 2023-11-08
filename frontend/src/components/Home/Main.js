@@ -7,19 +7,19 @@ import { List, ListItemButton } from '@mui/material';
 
 export default function Main() {
     return (
-        <List
+        <Box
             sx={{ width: '100%', bgcolor: '#18191a', paddingLeft: '45px', paddingRight: '45px' }}
             component="nav"
         >
-            <ListItemButton>
+            <Box>
                 <StoryList />
-            </ListItemButton>
+            </Box>
             <Box sx={{ paddingLeft: '30px' }} >
                 <PostInput />
             </Box>
             <Box>
                 <PostList />
             </Box>
-        </List>
+        </Box>
     )
 }

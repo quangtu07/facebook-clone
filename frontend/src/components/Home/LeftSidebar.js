@@ -10,6 +10,7 @@ import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined
 import StoreIcon from '@mui/icons-material/Store';
 import { Typography } from '@mui/material';
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 const textStyle = {
     color: '#d4d5d9',
@@ -18,12 +19,6 @@ const textStyle = {
 }
 
 const initialCategories = [
-    {
-        text: "Quang Tú",
-        type: 'avatar',
-        color: 'white',
-
-    },
     {
         text: "Bạn bè",
         type: 'PeopleIcon',
@@ -55,7 +50,7 @@ const componentMap = {
 };
 
 export default function LeftSidebar() {
-    const navigate = useNavigate();
+    const { firstName, lastName, picturePath } = useSelector((state) => state.user)
 
     return (
         <List
@@ -63,6 +58,27 @@ export default function LeftSidebar() {
             component="nav"
             aria-labelledby="nested-list-subheader"
         >
+            <ListItemButton
+                sx={{
+                    backgroundColor: 'transparent',
+                    '&:hover': {
+                        backgroundColor: 'silver',
+                    }
+                }}
+            >
+                <ListItemIcon>
+                    <Avatar
+                        alt="Avatar"
+                        src={`/assets/images/${picturePath}`}
+                        sx={{ width: 40, height: 40 }}
+                    />
+                </ListItemIcon>
+                <ListItemText primary={
+                    <Typography sx={textStyle}>
+                        {`${firstName} ${lastName}`}
+                    </Typography>
+                } />
+            </ListItemButton>
             {initialCategories.map((cate, index) => {
                 const Component = componentMap[cate.type];
                 return (

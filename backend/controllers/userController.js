@@ -113,7 +113,15 @@ const getUserFriends = asyncHandler(async (req, res) => {
     const { _id } = req.user;
     try {
         const userFriends = await User.findById({ _id }).select("friends")
-        res.json(userFriends);
+
+        // Lấy ra mảng các _id của bạn
+        const friendIds = userFriends.friends;
+
+        // Sử dụng $in operator để tìm tất cả bạn dựa trên _id
+        const friendsData = await User.find({ _id: { $in: friendIds } })
+            .select("firstName lastName picturePath");
+
+        res.json(friendsData);
     } catch (err) {
         throw new Error(err);
     }
